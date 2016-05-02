@@ -12,8 +12,38 @@
     tools:context="jp.xxxxxxxx.kanalab.enstar.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Chronometer
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/chronometer"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:textColor="#54eeff"
+        android:textSize="100dip"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/chronometer">
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/timer_switch"
+            android:id="@+id/switch1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/time_set_message"
+            android:id="@+id/textView" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar" />
+
+    </LinearLayout>
 </RelativeLayout>
