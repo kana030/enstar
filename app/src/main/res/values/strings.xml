@@ -5,5 +5,5 @@
     <string name="time_set_message">時間の指定(2時間～2時間30分)</string>
     <string name="timer_on">ON</string>
     <string name="timer_off">OFF</string>
-    <string name="set_time">2:00:00</string>
+    <string name="set_time">2:25:00</string>
 </resources>

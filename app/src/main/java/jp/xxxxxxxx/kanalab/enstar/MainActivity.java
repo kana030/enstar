@@ -1,18 +1,11 @@
 package jp.xxxxxxxx.kanalab.enstar;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,7 +14,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
     private Switch startSwitch;
     private TextView timerView;
-    final MyCountDownTimer cdt = new MyCountDownTimer(7200000, 1000);
+    private int mintime =25;
+    private int setTime = mintime * 60000 + 7200000;
+    private MyCountDownTimer cdt = new MyCountDownTimer(setTime, 1000);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +30,26 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         startSwitch.setOnCheckedChangeListener(this);
 
     }
+    public class MyCountDownTimer extends CountDownTimer {
 
+        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+
+        }
+
+        @Override
+        public void onFinish() {
+            // カウントダウン完了後に呼ばれる
+            timerView.setText("0:0:00");
+            Toast.makeText(getApplicationContext(), "LPがたまりました", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            // インターバル(countDownInterval)毎に呼ばれる
+            timerView.setText(Long.toString(millisUntilFinished/1000/60/60) + ":" +Long.toString(millisUntilFinished/1000/60%60) + ":" + Long.toString(millisUntilFinished/1000%60));
+        }
+    }
     //トグルスイッチの状態
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -47,29 +61,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         } else {
             //タイマーの停止
             cdt.cancel();
-            timerView.setText("2:00:00");
+            timerView.setText("2:"+mintime+":00");
 
-        }
-    }
-
-    public class MyCountDownTimer extends CountDownTimer {
-
-        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-
-        }
-
-        @Override
-        public void onFinish() {
-            // カウントダウン完了後に呼ばれる
-            timerView.setText("0:00:00");
-            Toast.makeText(getApplicationContext(), "LPがたまりました", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            // インターバル(countDownInterval)毎に呼ばれる
-            timerView.setText(Long.toString(millisUntilFinished/1000/60/60) + ":" +Long.toString(millisUntilFinished/1000/60%60) + ":" + Long.toString(millisUntilFinished/1000%60));
         }
     }
 
