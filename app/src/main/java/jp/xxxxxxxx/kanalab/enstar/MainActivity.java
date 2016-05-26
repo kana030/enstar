@@ -1,8 +1,15 @@
 package jp.xxxxxxxx.kanalab.enstar;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         startSwitch= (Switch) findViewById(R.id.switch1);
         startSwitch.setOnCheckedChangeListener(this);
 
-    }
+     }
     public class MyCountDownTimer extends CountDownTimer {
 
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
@@ -57,6 +64,20 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         if (isChecked == true) {
             //タイマーの起動
              cdt.start();
+             NotificationCompat.Builder mBuilder =
+                     (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                             .setSmallIcon(R.drawable.notification_icon)
+                             .setContentTitle("あんスタタイマー")
+                             .setContentText("タイマー起動中です");
+            // Sets an ID for the notification
+            int mNotificationId = 001;
+            // Gets an instance of the NotificationManager service
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            // Builds the notification and issues it.
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+
 
         } else {
             //タイマーの停止
